@@ -32,17 +32,17 @@ namespace cardgame21v2
                     int PointsPlayer2 = 0;
                     Console.WriteLine("You take cards first");
                     Console.ReadKey();
-                    int q = cards[index];
+                    PointsPlayer1 += cards[index];
+                    Console.WriteLine($"You took card {cards[index]}");
                     index++;
-                    int w = cards[index];
+                    PointsPlayer1 += cards[index];
+                    Console.WriteLine($"You took card {cards[index]}");
                     index++;
-                    PointsPlayer1 = q + w;
-                    Console.WriteLine($"You took {q} and {w}, your summa = {PointsPlayer1} of 21 ");
-                    int e = cards[index];
+                    Console.WriteLine($"Your summa = {PointsPlayer1} of 21 ");
+                    PointsPlayer2 += cards[index];
                     index++;
-                    int r = cards[index];
+                    PointsPlayer2 += cards[index];
                     index++;
-                    PointsPlayer2 = e + r;
                     Console.WriteLine("Computer took cards too");
                     if (PointsPlayer1 == 21)
                     {
@@ -60,9 +60,16 @@ namespace cardgame21v2
                     string MorePlayer1 = "1";
                     while (MorePlayer1 == "1" && PointsPlayer1 < 21)
                     {
-                        Console.WriteLine("Do you want take more?");
-                        Console.WriteLine("Yes - 1 / No -click something");
-                        MorePlayer1 = Console.ReadLine();
+                        while(MorePlayer1 != "1" || MorePlayer1 != "2")
+                        {
+                            Console.WriteLine("Do you want take more?");
+                            Console.WriteLine("Yes - 1 / No - 2");
+                            MorePlayer1 = Console.ReadLine();
+                            if(MorePlayer1 == "1" || MorePlayer1 == "2")
+                            {
+                                break;
+                            }
+                        }
                         if (MorePlayer1 == "1")
                         {
                             
@@ -114,18 +121,18 @@ namespace cardgame21v2
                     int PointsPlayer2 = 0;
                     Console.WriteLine("Computer take cards first");
                     Console.ReadKey();
-                    int e = cards[index];
+                    PointsPlayer2 += cards[index];
                     index++;
-                    int r = cards[index];
+                    PointsPlayer2 += cards[index];
                     index++;
-                    PointsPlayer2 = e + r;
                     Console.WriteLine("Computer took cards");
-                    int q = cards[index];
+                    PointsPlayer1 += cards[index];
+                    Console.WriteLine($"You took card {cards[index]}");
                     index++;
-                    int w = cards[index];
+                    PointsPlayer1 += cards[index];
+                    Console.WriteLine($"You took card {cards[index]}");
                     index++;
-                    PointsPlayer1 = q + w;
-                    Console.WriteLine($"You took {q} and {w}, your summa = {PointsPlayer1} of 21 ");
+                    Console.WriteLine($"Your summa = {PointsPlayer1} of 21 ");
                     if (PointsPlayer2 == 21)
                     {
                         Console.WriteLine("Computer took 21 points, you lose!");
@@ -157,9 +164,16 @@ namespace cardgame21v2
                     string MorePlayer1 = "1";
                     while (MorePlayer1 == "1" && PointsPlayer1 < 21)
                     {
-                        Console.WriteLine("Do you want take more?");
-                        Console.WriteLine("Yes - 1 / No -click something");
-                        MorePlayer1 = Console.ReadLine();
+                        while (MorePlayer1 != "1" || MorePlayer1 != "2")
+                        {
+                            Console.WriteLine("Do you want take more?");
+                            Console.WriteLine("Yes - 1 / No - 2");
+                            MorePlayer1 = Console.ReadLine();
+                            if (MorePlayer1 == "1" || MorePlayer1 == "2")
+                            {
+                                break;
+                            }
+                        }
                         if (MorePlayer1 == "1")
                         {
                             PointsPlayer1 += cards[index];
@@ -189,9 +203,17 @@ namespace cardgame21v2
                         Console.WriteLine("VICTORY!!!");
                     }
                 }
-                Console.WriteLine("Do you want start new game?");
-                Console.WriteLine("1 - Yes / 2 - No");
-                NewGame = Console.ReadLine();
+                while (NewGame != "1" || NewGame != "2")
+                {
+                    Console.WriteLine("Do you want start new game?");
+                    Console.WriteLine("Yes - 1 / No - 2");
+                    NewGame = Console.ReadLine();
+                    if (NewGame == "1" || NewGame == "2")
+                    {
+                        break;
+                    }
+                }
+                
             }
         }
     }
