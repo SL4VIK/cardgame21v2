@@ -13,7 +13,9 @@ namespace CardGame21vStr
         public int PointsPlayer1;
         public int PointsPlayer2;
         public string MorePlayer1;
-        public void Sort()
+        public int a;
+        public string enter;
+        public void Mixing()
         {
             Random random = new Random();
             for (int i = cards.Length - 1; i >= 0; i--)
@@ -24,103 +26,104 @@ namespace CardGame21vStr
                 cards[i] = temp;
             }
         }
-        public void TakeP1()
+        public void Take(int a)
         {
-            Console.ReadKey();
-            PointsPlayer1 += cards[index];
-            Console.WriteLine($"You took card {cards[index]}");
-            index++;
-            PointsPlayer1 += cards[index];
-            Console.WriteLine($"You took card {cards[index]}");
-            index++;
-            Console.WriteLine($"Your summa = {PointsPlayer1} of 21 ");
+            while(enter != "1")
+            {
+                Console.WriteLine("OK - 1");
+                enter = Console.ReadLine();
+            }
+            if(index < 32)
+            {
+                int temporary = cards[index];
+                index++;
+                temporary += cards[index];
+                index++;
+                if(a == 0)
+                {
+                    PointsPlayer1 = temporary;
+                    Console.WriteLine($"Your summa = {PointsPlayer1} of 21 ");
+                }
+                else
+                {
+                    PointsPlayer2 = temporary;
+                }
+            }
         }
-        public void TakeP2()
+        public void More(int a)
         {
-            PointsPlayer2 += cards[index];
-            index++;
-            PointsPlayer2 += cards[index];
-            index++;
+            if(a == 0 && index < 35)
+            {
+                while (MorePlayer1 == "1" && PointsPlayer1 < 21)
+                {
+                    while (MorePlayer1 != "1" || MorePlayer1 != "2")
+                    {
+                        Console.WriteLine("Do you want take more?");
+                        Console.WriteLine("Yes - 1 / No - 2");
+                        MorePlayer1 = Console.ReadLine();
+                        if (MorePlayer1 == "1" || MorePlayer1 == "2")
+                        {
+                            break;
+                        }
+                    }
+                    if (MorePlayer1 == "1")
+                    {
+                        PointsPlayer1 += cards[index];
+                        index++;
+                        if (PointsPlayer1 > 21)
+                        {
+                            Console.WriteLine($"You took card, your summa = {PointsPlayer1}");
+                            Console.WriteLine("You have more than 21, you lose!");
+                            break;
+                        }
+                        if (PointsPlayer1 == 21)
+                        {
+                            break;
+                        }
+                        Console.WriteLine($"You took card, your summa = {PointsPlayer1}");
+                    }
+                }
+            }
+            else if(a == 1 && index < 35)
+            {
+                while (PointsPlayer2 < 16 && index < 35)
+                {
+                    PointsPlayer2 += cards[index];
+                    index++;
+                    if (PointsPlayer2 > 21)
+                    {
+                        Console.WriteLine($"Computer took card, his summa = {PointsPlayer2}");
+                        Console.WriteLine("Computer have more than 21, VICTORY!!!");
+                        break;
+                    }
+                    if (PointsPlayer2 == 21)
+                    {
+                        break;
+                    }
+                }
+            }
         }
         public void Comparison()
         {
-            if (PointsPlayer1 == 21)
-            {
-                Console.WriteLine("You took 21 points, you won!");
-            }
-            if (PointsPlayer2 == 21)
-            {
-                Console.WriteLine("Computer took 21 points, you lose!");
-            }
-            if (PointsPlayer1 == 21 && PointsPlayer2 == 21)
-            {
-                Console.WriteLine("DRAW!!!");
-            }
-            Console.ReadKey();
-        }
-        public void MoreP1()
-        {
-            while (MorePlayer1 == "1" && PointsPlayer1 < 21)
-            {
-                while (MorePlayer1 != "1" || MorePlayer1 != "2")
-                {
-                    Console.WriteLine("Do you want take more?");
-                    Console.WriteLine("Yes - 1 / No - 2");
-                    MorePlayer1 = Console.ReadLine();
-                    if (MorePlayer1 == "1" || MorePlayer1 == "2")
-                    {
-                        break;
-                    }
-                }
-                if (MorePlayer1 == "1")
-                {
-                    PointsPlayer1 += cards[index];
-                    index++;
-                    if (PointsPlayer1 > 21)
-                    {
-                        Console.WriteLine($"You took card, your summa = {PointsPlayer1}");
-                        Console.WriteLine("You have more than 21, you lose!");
-                        break;
-                    }
-                    if (PointsPlayer1 == 21)
-                    {
-                        break;
-                    }
-                    Console.WriteLine($"You took card, your summa = {PointsPlayer1}");
-                }
-
-            }
-        }
-        public void MoreP2()
-        {
-            while (PointsPlayer2 < 16)
-            {
-                PointsPlayer2 += cards[index];
-                index++;
-                if (PointsPlayer2 > 21)
-                {
-                    Console.WriteLine($"Computer took card, his summa = {PointsPlayer2}");
-                    Console.WriteLine("Computer have more than 21, VICTORY!!!");
-                    break;
-                }
-                if (PointsPlayer2 == 21)
-                {
-                    break;
-                }
-            }
-        }
-        public void Comparison2()
-        {
-            if (PointsPlayer1 > PointsPlayer2 && PointsPlayer1 <= 21)
+            if ((PointsPlayer1 > PointsPlayer2 && PointsPlayer1 < 21)|| PointsPlayer1 == 21)
             {
                 Console.WriteLine($"You have {PointsPlayer1} points, computer have {PointsPlayer2} points.");
                 Console.WriteLine("VICTORY!!!");
             }
-            else if (PointsPlayer2 > PointsPlayer1 && PointsPlayer2 <= 21)
+            else if ((PointsPlayer2 > PointsPlayer1 && PointsPlayer2 < 21)|| PointsPlayer2 == 21)
             {
                 Console.WriteLine($"You have {PointsPlayer1} points, computer have {PointsPlayer2} points.");
                 Console.WriteLine("You LOSE!!!");
             }
+            else if (PointsPlayer1 == 21 && PointsPlayer2 == 21)
+            {
+                Console.WriteLine("DRAW!!!");
+            }
+        }
+        public void Random()
+        {
+            Random random = new Random();
+            a = (random.Next(0, 2));
         }
     }
     class Program
@@ -132,46 +135,50 @@ namespace CardGame21vStr
             BJ.cards = new int[36] { 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 11, 11, 11, 11 };
             BJ.PointsPlayer1 = 0;
             BJ.PointsPlayer2 = 0;
-            BJ.Sort();
+            BJ.Mixing();
             string NewGame = "1";
-            Random Player = new Random();
-            while (NewGame == "1")
+            
+            while (NewGame == "1" && BJ.index < 32)
             {
-                var a = (Player.Next(0, 2));
-                if (a == 0)
+                BJ.Random();
+
+                if (BJ.a == 0)
                 {
 
                     Console.WriteLine("You take cards first");
-                    BJ.TakeP1();
-                    BJ.TakeP2();
-                    BJ.Comparison();
+                    BJ.Take(0);
+                    BJ.Take(1);
                     BJ.MorePlayer1 = "1";
-                    BJ.MoreP1();
-                    BJ.MoreP2();
-                    BJ.Comparison2();
+                    BJ.More(0);
+                    BJ.More(1);
+                    BJ.Comparison();
                 }
                 else
                 {
                     Console.WriteLine("Computer take cards first");
-                    BJ.TakeP2();
-                    BJ.TakeP1();
-                    BJ.Comparison();
-                    BJ.MoreP2();
+                    BJ.Take(1);
+                    BJ.Take(0);
+                    BJ.More(1);
                     BJ.MorePlayer1 = "1";
-                    BJ.MoreP1();
-                    BJ.Comparison2();
+                    BJ.More(0);
+                    BJ.Comparison();
                 }
-                while (NewGame != "1" || NewGame != "2")
+                if(BJ.index == 35)
+                {
+                    Console.WriteLine("Deck is over");
+                }
+                BJ.PointsPlayer1 = 0;
+                BJ.PointsPlayer2 = 0;
+                while (NewGame != "1" || NewGame != "2" || BJ.index != 35)
                 {
                     Console.WriteLine("Do you want start new game?");
                     Console.WriteLine("Yes - 1 / No - 2");
                     NewGame = Console.ReadLine();
-                    if (NewGame == "1" || NewGame == "2")
+                    if (NewGame == "1" || NewGame == "2" || BJ.index == 35)
                     {
                         break;
                     }
                 }
-
             }
         }
     }
